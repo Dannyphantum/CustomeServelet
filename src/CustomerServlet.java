@@ -7,7 +7,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import customerApplication.Customer;
 import customerApplication.CustomerApp;
+import customerApplication.DBConnection;
 
 /**
  * Servlet implementation class CustomerServlet
@@ -23,15 +25,6 @@ public class CustomerServlet extends HttpServlet {
         super();
         // TODO Auto-generated constructor stub
     }
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-	}
-
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -39,6 +32,12 @@ public class CustomerServlet extends HttpServlet {
 	
 		String LastName = request.getParameter("LastName");
 		CustomerApp app = new CustomerApp();
+		DBConnection connect = new DBConnection();
+		Customer cust = new Customer();
+		String lname = cust.LastName();
+		
+		connect.getData("customers", "Company", "customers.CompanyID", "Company.companyID", "customers.LastName", lname, "FullName", 
+				"StreetAddress", "City", "ZipCode", "EmailAddress", "Position", "Company");
 	}
 	
 
